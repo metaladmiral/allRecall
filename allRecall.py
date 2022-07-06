@@ -10,7 +10,6 @@ from PIL import Image, ImageTk
 class app(Tk):
     def __init__(self):
         super().__init__()
-        
 
         self.selected_items = []
 
@@ -113,7 +112,8 @@ class app(Tk):
         for line in reversed(lines):
             line.replace('\n', '')
             word_list = line.split(',')
-            data.append((word_list[0], word_list[1], word_list[2]))
+            mainval = word_list[0].replace('xxx', ',')
+            data.append((mainval, word_list[1], word_list[2]))
         
         self.f.close()
         # add data to the treeview
@@ -131,12 +131,13 @@ class app(Tk):
 
     def btnaction(self):
         val = self.value.get()
+        valnew = val.replace(',', 'xxx')
         now = dt.now()
         date = str(now.strftime("%b-%d %Y"))
         
         self.f = open("data_allread.txt", "a+")
         self.f.seek(0, 0)
-        filedata = val+","+str(len(val))+","+date
+        filedata = valnew+","+str(len(val))+","+date
         self.f.write(filedata.rstrip("\t\r\n")+"\n")
         self.f.close()
         
